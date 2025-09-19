@@ -1,0 +1,2665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CFI ACS Reference - Flight Instructor Certification Standards</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header .subtitle {
+            font-size: 1.3em;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+
+        .header .document-info {
+            font-size: 1em;
+            opacity: 0.8;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            border-radius: 25px;
+            display: inline-block;
+        }
+
+        .search-section {
+            margin-bottom: 40px;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 15px 20px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 50px;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-box:focus {
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .areas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .area-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .area-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border-color: #667eea;
+        }
+
+        .appendix-card {
+            border-left: 5px solid #9c27b0;
+            background: linear-gradient(135deg, #f3e5f5, #e1bee7);
+        }
+
+        .appendix-card:hover {
+            border-left-color: #7b1fa2;
+            background: linear-gradient(135deg, #e1bee7, #ce93d8);
+        }
+
+        .appendix-card .area-number {
+            color: #7b1fa2;
+            font-weight: 700;
+        }
+
+        .area-number {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .area-title {
+            font-size: 1.4em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .area-description {
+            color: #666;
+            font-size: 0.95em;
+            margin-bottom: 15px;
+        }
+
+        .task-count {
+            display: inline-block;
+            background: #f0f0f0;
+            color: #666;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: 500;
+        }
+
+        .stats-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #667eea;
+            display: block;
+        }
+
+        .stat-label {
+            color: #666;
+            font-weight: 500;
+            margin-top: 5px;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            opacity: 0.8;
+            padding: 20px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Area and Task Detail Styles */
+        .area-detail {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .area-detail-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .back-button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-right: 20px;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .area-detail-title {
+            flex: 1;
+        }
+
+        .area-detail-number {
+            font-size: 1.2em;
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .area-detail-name {
+            font-size: 2em;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .area-detail-description {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .evaluator-note {
+            background: #fff8e1;
+            border: 1px solid #ffcc02;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 25px;
+        }
+
+        .evaluator-note h4 {
+            color: #f57c00;
+            margin-bottom: 8px;
+            font-size: 1em;
+        }
+
+        .evaluator-note p {
+            color: #666;
+            font-size: 0.9em;
+            margin: 0;
+        }
+
+        .tasks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+        }
+
+        .task-card {
+            background: #f8f9ff;
+            border: 2px solid #e8ecff;
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .task-card:hover {
+            border-color: #667eea;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.1);
+        }
+
+        .task-number {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-weight: bold;
+            font-size: 0.85em;
+            margin-bottom: 15px;
+        }
+
+        .task-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .task-objective {
+            color: #666;
+            font-size: 0.95em;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .task-elements {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .element-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 500;
+        }
+
+        .knowledge-badge {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .risk-badge {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+
+        .skills-badge {
+            background: #e8f5e8;
+            color: #388e3c;
+        }
+
+        /* Task Detail View Styles */
+        .task-elements-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .element-section {
+            background: #f8f9ff;
+            border-radius: 15px;
+            padding: 25px;
+            border: 2px solid #e8ecff;
+        }
+
+        .element-section-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .knowledge-title {
+            color: #1976d2;
+        }
+
+        .risk-title {
+            color: #f57c00;
+        }
+
+        .skills-title {
+            color: #388e3c;
+        }
+
+        .element-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .element-item {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            border-left: 4px solid #ddd;
+            transition: all 0.3s ease;
+        }
+
+        .element-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .element-item.knowledge {
+            border-left-color: #1976d2;
+        }
+
+        .element-item.risk {
+            border-left-color: #f57c00;
+        }
+
+        .element-item.skills {
+            border-left-color: #388e3c;
+        }
+
+        .element-code {
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 8px;
+            background: #f5f5f5;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .element-text {
+            color: #333;
+            line-height: 1.5;
+            font-size: 0.95em;
+        }
+
+        /* Study Mode and Progress Tracking Styles */
+        .study-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            gap: 20px;
+        }
+
+        .study-mode-btn {
+            background: linear-gradient(135deg, #4caf50, #45a049);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 0.95em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .study-mode-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        .study-mode-btn.active {
+            background: linear-gradient(135deg, #f44336, #d32f2f);
+            box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
+        }
+
+        .study-mode-btn.active:hover {
+            box-shadow: 0 6px 20px rgba(244, 67, 54, 0.4);
+        }
+
+        .progress-summary {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px 20px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .progress-summary:hover {
+            background: rgba(255, 255, 255, 1);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .progress-arrow {
+            font-size: 0.8em;
+            color: #667eea;
+            transition: transform 0.3s ease;
+        }
+
+        .progress-summary.expanded .progress-arrow {
+            transform: rotate(180deg);
+        }
+
+        .progress-text {
+            color: #666;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        .progress-indicator {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .progress-indicator.not-studied {
+            background: #e0e0e0;
+            border: 2px solid #ccc;
+        }
+
+        .progress-indicator.studied {
+            background: #4caf50;
+            border: 2px solid #45a049;
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+        }
+
+        .area-card, .task-card {
+            position: relative;
+        }
+
+        .study-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #f8f9ff;
+            border-radius: 15px;
+            border: 2px solid #e8ecff;
+        }
+
+        .mark-studied-btn {
+            background: linear-gradient(135deg, #2196f3, #1976d2);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 0.95em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+        }
+
+        .mark-studied-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(33, 150, 243, 0.4);
+        }
+
+        .mark-studied-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .mark-studied-btn.unmark {
+            background: linear-gradient(135deg, #f44336, #d32f2f);
+            box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
+        }
+
+        .mark-studied-btn.unmark:hover {
+            box-shadow: 0 6px 20px rgba(244, 67, 54, 0.4);
+        }
+
+        .study-status {
+            color: #666;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        .study-status.studied {
+            color: #4caf50;
+            font-weight: 600;
+        }
+
+        /* Study Mode Body Styles */
+        body.study-mode {
+            background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%);
+        }
+
+        body.study-mode .area-card:hover,
+        body.study-mode .task-card:hover {
+            border-color: #4caf50;
+            box-shadow: 0 20px 40px rgba(76, 175, 80, 0.15);
+        }
+
+        /* Enhanced Search Styles */
+        .search-results {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .search-result-item {
+            padding: 15px 40px 15px 15px;
+            margin-bottom: 10px;
+            background: white;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .search-result-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-left-color: #4caf50;
+        }
+
+        .search-result-item::after {
+            content: '→';
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #667eea;
+            font-size: 1.2em;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .search-result-item:hover::after {
+            opacity: 1;
+            color: #4caf50;
+        }
+
+        .search-result-type {
+            font-size: 0.8em;
+            color: #667eea;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .search-result-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .search-result-description {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .search-highlight {
+            background: #fff3cd;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        /* Progress Tracker Tab Styles */
+        .progress-tracker {
+            background: white;
+            border-radius: 20px;
+            margin: 20px 0;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            border: 2px solid #e8ecff;
+            overflow: hidden;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .progress-tracker-header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .progress-tracker-header h3 {
+            margin: 0;
+            font-size: 1.3em;
+            font-weight: 600;
+        }
+
+        .close-progress-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: all 0.3s ease;
+        }
+
+        .close-progress-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .progress-tracker-content {
+            padding: 25px;
+        }
+
+        .progress-overview {
+            margin-bottom: 25px;
+        }
+
+        .progress-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .progress-stat {
+            text-align: center;
+            padding: 15px;
+            background: #f8f9ff;
+            border-radius: 15px;
+            border: 2px solid #e8ecff;
+        }
+
+        .progress-stat .stat-number {
+            display: block;
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .progress-stat .stat-label {
+            color: #666;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: #e8ecff;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4caf50, #45a049);
+            border-radius: 6px;
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+
+        .areas-progress-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+
+        .area-progress-item {
+            background: #f8f9ff;
+            border: 2px solid #e8ecff;
+            border-radius: 15px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .area-progress-item:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.1);
+        }
+
+        .area-progress-item.studied {
+            border-color: #4caf50;
+            background: #f1f8e9;
+        }
+
+        .area-progress-item.studied:hover {
+            border-color: #45a049;
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.1);
+        }
+
+        .area-progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .area-progress-title {
+            font-weight: 600;
+            color: #333;
+            font-size: 1.1em;
+        }
+
+        .area-progress-status {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .area-progress-status.not-studied {
+            background: #e0e0e0;
+            color: #666;
+        }
+
+        .area-progress-status.studied {
+            background: #4caf50;
+            color: white;
+        }
+
+        .area-progress-description {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .area-progress-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .area-progress-btn {
+            flex: 1;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .area-progress-btn.mark {
+            background: linear-gradient(135deg, #2196f3, #1976d2);
+            color: white;
+        }
+
+        .area-progress-btn.mark:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+        }
+
+        .area-progress-btn.unmark {
+            background: linear-gradient(135deg, #f44336, #d32f2f);
+            color: white;
+        }
+
+        .area-progress-btn.unmark:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(244, 67, 54, 0.3);
+        }
+
+        .area-progress-btn.view {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .area-progress-btn.view:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Enhanced Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.2em;
+            }
+            
+            .header .subtitle {
+                font-size: 1.1em;
+            }
+            
+            .areas-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .task-elements-container {
+                gap: 20px;
+            }
+
+            .element-section {
+                padding: 20px;
+            }
+
+            .study-controls {
+                flex-direction: column;
+                gap: 15px;
+                align-items: stretch;
+            }
+
+            .study-mode-btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .progress-summary {
+                text-align: center;
+            }
+
+            .progress-tracker {
+                margin: 15px 0;
+            }
+
+            .progress-tracker-content {
+                padding: 20px;
+            }
+
+            .progress-stats {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .areas-progress-list {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .area-progress-item {
+                padding: 15px;
+            }
+
+            .area-progress-actions {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .study-actions {
+                flex-direction: column;
+                gap: 15px;
+                align-items: stretch;
+            }
+
+            .mark-studied-btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .search-results {
+                margin-top: 15px;
+                padding: 15px;
+            }
+
+            .search-result-item {
+                padding: 12px;
+            }
+
+            /* Touch-friendly interactions */
+            .area-card, .task-card {
+                min-height: 60px;
+                padding: 20px;
+            }
+
+            .back-button {
+                padding: 12px 24px;
+                font-size: 1em;
+            }
+
+            /* Improved touch targets */
+            button, .area-card, .task-card, .search-result-item {
+                -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+            }
+
+            /* Better spacing for mobile */
+            .container {
+                padding: 15px;
+            }
+
+            .header {
+                padding: 30px 15px;
+            }
+
+            .stats-section {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .header .subtitle {
+                font-size: 1em;
+            }
+
+            .area-card, .task-card {
+                padding: 15px;
+            }
+
+            .element-section {
+                padding: 15px;
+            }
+
+            .study-actions {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Home Page -->
+        <div id="homePage">
+            <div class="header">
+                <h1>CFI ACS Reference</h1>
+                <div class="subtitle">Flight Instructor - Airplane Category</div>
+                <div class="document-info">FAA-S-ACS-25 | November 2023</div>
+            </div>
+
+            <div class="search-section">
+                <input type="text" class="search-box" placeholder="Search areas, tasks, knowledge elements, or skills..." id="searchInput">
+                <div class="study-controls">
+                    <button class="study-mode-btn" id="studyModeButton" onclick="toggleStudyMode()">📖 Enter Study Mode</button>
+                    <div class="progress-summary" id="progressSummary" onclick="toggleProgressTracker()">
+                        <span class="progress-text">Progress: <span id="progressCount">0/0</span> areas studied</span>
+                        <span class="progress-arrow">▼</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Tracker Tab -->
+            <div id="progressTracker" class="progress-tracker hidden">
+                <div class="progress-tracker-header">
+                    <h3>📊 Study Progress Tracker</h3>
+                    <button class="close-progress-btn" onclick="toggleProgressTracker()">✕</button>
+                </div>
+                <div class="progress-tracker-content">
+                    <div class="progress-overview">
+                        <div class="progress-stats">
+                            <div class="progress-stat">
+                                <span class="stat-number" id="totalAreas">17</span>
+                                <span class="stat-label">Total Areas</span>
+                            </div>
+                            <div class="progress-stat">
+                                <span class="stat-number" id="studiedAreas">0</span>
+                                <span class="stat-label">Studied</span>
+                            </div>
+                            <div class="progress-stat">
+                                <span class="stat-number" id="progressPercentage">0%</span>
+                                <span class="stat-label">Complete</span>
+                            </div>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressBarFill"></div>
+                        </div>
+                    </div>
+                    <div class="areas-progress-list" id="areasProgressList">
+                        <!-- Areas will be populated here -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-section">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-number">17</span>
+                        <div class="stat-label">Areas & Appendices</div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">83</span>
+                        <div class="stat-label">Individual Tasks</div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">3</span>
+                        <div class="stat-label">Evaluation Areas</div>
+                        <div style="font-size: 0.8em; margin-top: 5px;">Knowledge • Risk • Skills</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="areas-grid" id="areasGrid">
+                <div class="area-card" onclick="showAreaDetail('I')">
+                    <div class="area-number">Area I</div>
+                    <div class="area-title">Fundamentals of Instructing</div>
+                    <div class="area-description">Human behavior, learning process, teaching techniques, assessment, and professional responsibilities.</div>
+                    <div class="task-count">6 Tasks (A-F)</div>
+                    <div class="progress-indicator not-studied" title="Not yet studied"></div>
+                </div>
+
+                <div class="area-card" onclick="showAreaDetail('II')">
+                    <div class="area-number">Area II</div>
+                    <div class="area-title">Technical Subject Areas</div>
+                    <div class="area-description">Human factors, aerodynamics, systems, weather, regulations, and specialized operations.</div>
+                    <div class="task-count">16 Tasks (A-P)</div>
+                    <div class="progress-indicator not-studied" title="Not yet studied"></div>
+                </div>
+
+                <div class="area-card" onclick="showAreaDetail('III')">
+                    <div class="area-number">Area III</div>
+                    <div class="area-title">Preflight Preparation</div>
+                    <div class="area-description">Pilot qualifications, airworthiness requirements, and weather information analysis.</div>
+                    <div class="task-count">3 Tasks (A-C)</div>
+                    <div class="progress-indicator not-studied" title="Not yet studied"></div>
+                </div>
+
+                <div class="area-card" onclick="alert('Area details coming soon!')">
+                    <div class="area-number">Area IV</div>
+                    <div class="area-title">Preflight Lesson on a Maneuver</div>
+                    <div class="area-description">Ground instruction preparation and delivery for flight maneuvers.</div>
+                    <div class="task-count">1 Task (A)</div>
+                    <div class="progress-indicator not-studied" title="Not yet studied"></div>
+                </div>
+
+                <div class="area-card" onclick="alert('Area details coming soon!')">
+                    <div class="area-number">Area V</div>
+                    <div class="area-title">Preflight Procedures</div>
+                    <div class="area-description">Aircraft inspection, flight deck management, engine starting, and taxi operations.</div>
+                    <div class="task-count">6 Tasks (A-F)</div>
+                    <div class="progress-indicator not-studied" title="Not yet studied"></div>
+                </div>
+
+                <div class="area-card" onclick="alert('Area details coming soon!')">
+                    <div class="area-number">Area VI</div>
+                    <div class="area-title">Airport and Seaplane Base Operations</div>
+                    <div class="area-description">Communications, traffic patterns, and airport/seaplane base procedures.</div>
+                    <div class="task-count">2 Tasks (A-B)</div>
+                    <div class="progress-indicator not-studied" title="Not yet studied"></div>
+                </div>
+
+                <div class="area-card" onclick="alert('Area details coming soon!')">
+                    <div class="area-number">Area VII</div>
+                    <div class="area-title">Takeoffs, Landings, and Go-Arounds</div>
+                    <div class="area-description">Normal, crosswind, soft-field, short-field, and specialized takeoff/landing procedures.</div>
+                    <div class="task-count">15 Tasks (A-O)</div>
+                    <div class="progress-indicator not-studied" title="Not yet studied"></div>
+                </div>
+
+                <div class="area-card" onclick="alert('Area details coming soon!')">
+                    <div class="area-number">Area VIII</div>
+                    <div class="area-title">Fundamentals of Flight</div>
+                    <div class="area-description">Basic aircraft control in straight-and-level, turns, climbs, and descents.</div>
+                    <div class="task-count">4 Tasks (A-D)</div>
+                    <div class="progress-indicator not-studied" title="Not yet studied"></div>
+                </div>
+
+                <div class="area-card" onclick="alert('Area details coming soon!')">
+                    <div class="area-number">Area IX</div>
+                    <div class="area-title">Performance and Ground Reference Maneuvers</div>
+                    <div class="area-description">Steep turns, chandelles, lazy eights, ground reference maneuvers, and pylons.</div>
+                    <div class="task-count">6 Tasks (A-F)</div>
+                    <div class="progress-indicator not-studied" title="Not yet studied"></div>
+                </div>
+
+                <div class="area-card" onclick="alert('Area details coming soon!')">
+                    <div class="area-number">Area X</div>
+                    <div class="area-title">Slow Flight, Stalls, and Spins</div>
+                    <div class="area-description">Slow flight, various stall types, stall demonstrations, and spin awareness.</div>
+                    <div class="task-count">9 Tasks (A-I)</div>
+                    <div class="progress-indicator not-studied" title="Not yet studied"></div>
+                </div>
+
+                <div class="area-card" onclick="alert('Area details coming soon!')">
+                    <div class="area-number">Area XI</div>
+                    <div class="area-title">Basic Instrument Maneuvers</div>
+                    <div class="area-description">Instrument flight basics including climbs, descents, turns, and unusual attitudes.</div>
+                    <div class="task-count">5 Tasks (A-E)</div>
+                    <div class="progress-indicator not-studied" title="Not yet studied"></div>
+                </div>
+
+                <div class="area-card" onclick="alert('Area details coming soon!')">
+                    <div class="area-number">Area XII</div>
+                    <div class="area-title">Emergency Operations</div>
+                    <div class="area-description">Emergency descents, system malfunctions, engine failures, and emergency equipment.</div>
+                    <div class="task-count">7 Tasks (A-G)</div>
+                    <div class="progress-indicator not-studied" title="Not yet studied"></div>
+                </div>
+
+                <div class="area-card" onclick="alert('Area details coming soon!')">
+                    <div class="area-number">Area XIII</div>
+                    <div class="area-title">Multiengine Operations</div>
+                    <div class="area-description">Single-engine operations, VMC demonstrations, and multiengine performance (AMEL/AMES only).</div>
+                    <div class="task-count">3 Tasks (A-C)</div>
+                    <div class="progress-indicator not-studied" title="Not yet studied"></div>
+                </div>
+
+                <div class="area-card" onclick="showAreaDetail('XIV')">
+                    <div class="area-number">Area XIV</div>
+                    <div class="area-title">Postflight Procedures</div>
+                    <div class="area-description">Postflight inspection, securing aircraft, and debriefing procedures.</div>
+                    <div class="task-count">1 Task (A)</div>
+                    <div class="progress-indicator not-studied" title="Not yet studied"></div>
+                </div>
+
+                <!-- Appendices Section -->
+                <div class="area-card appendix-card" onclick="showAreaDetail('A')">
+                    <div class="area-number">Appendix A</div>
+                    <div class="area-title">Practical Test Roles, Responsibilities, and Outcomes</div>
+                    <div class="area-description">Guidelines for practical test requirements, renewal/reinstatement procedures, and evaluator responsibilities.</div>
+                    <div class="task-count">2 Tasks (1-2)</div>
+                    <div class="progress-indicator not-studied" title="Not yet studied"></div>
+                </div>
+
+                <div class="area-card appendix-card" onclick="showAreaDetail('B')">
+                    <div class="area-number">Appendix B</div>
+                    <div class="area-title">Safety of Flight</div>
+                    <div class="area-description">Critical safety considerations, procedures, and requirements for conducting practical tests safely.</div>
+                    <div class="task-count">6 Tasks (1-6)</div>
+                    <div class="progress-indicator not-studied" title="Not yet studied"></div>
+                </div>
+
+                <div class="area-card appendix-card" onclick="showAreaDetail('C')">
+                    <div class="area-number">Appendix C</div>
+                    <div class="area-title">Aircraft, Equipment, and Operational Requirements & Limitations</div>
+                    <div class="area-description">Aircraft requirements, equipment specifications, and operational limitations for practical tests.</div>
+                    <div class="task-count">5 Tasks (1-5)</div>
+                    <div class="progress-indicator not-studied" title="Not yet studied"></div>
+                </div>
+            </div>
+
+            <div class="footer">
+                <p>Reference tool for CFI candidates studying the FAA Flight Instructor ACS</p>
+            </div>
+        </div>
+
+        <!-- Area Detail View -->
+        <div id="areaDetailView" class="hidden">
+            <div class="area-detail">
+                <div class="area-detail-header">
+                    <button class="back-button" onclick="showHomePage()">← Back to Areas</button>
+                    <div class="area-detail-title">
+                        <div class="area-detail-number" id="areaNumber">Area I</div>
+                        <div class="area-detail-name" id="areaName">Fundamentals of Instructing</div>
+                        <div class="area-detail-description" id="areaDescription">Essential teaching concepts including human behavior, learning theory, course development, assessment techniques, and professional responsibilities for flight instructors.</div>
+                    </div>
+                </div>
+                
+                <div class="evaluator-note">
+                    <h4>📋 Evaluator Requirements</h4>
+                    <p id="evaluatorNote">The evaluator must select Task E, Task F, and at least one other Task for initial flight instructor applicants.</p>
+                </div>
+
+                <div class="tasks-grid" id="tasksContainer">
+                    <!-- Tasks will be populated here by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Task Detail View -->
+        <div id="taskDetailView" class="hidden">
+            <div class="area-detail">
+                <div class="area-detail-header">
+                    <button class="back-button" onclick="showAreaDetail(currentAreaId)">← Back to Tasks</button>
+                    <div class="area-detail-title">
+                        <div class="area-detail-number" id="taskAreaNumber">Area I</div>
+                        <div class="area-detail-name" id="taskTitle">Task A - Effects of Human Behavior and Communication on the Learning Process</div>
+                        <div class="area-detail-description" id="taskDescription">Human behavior elements, learner emotional reactions, teaching adult learners, and effective communication including basic elements, barriers, and skill development.</div>
+                    </div>
+                </div>
+
+                <div class="study-actions" id="studyActions">
+                    <button class="mark-studied-btn" id="markStudiedBtn" onclick="markCurrentTaskStudied()">✅ Mark as Studied</button>
+                    <div class="study-status" id="studyStatus">Not yet studied</div>
+                </div>
+
+                <div class="task-elements-container">
+                    <div class="element-section">
+                        <h3 class="element-section-title knowledge-title">📚 Knowledge Elements</h3>
+                        <div class="element-list" id="knowledgeElements">
+                            <!-- Knowledge elements will be populated here -->
+                        </div>
+                    </div>
+
+                    <div class="element-section">
+                        <h3 class="element-section-title risk-title">⚠️ Risk Management Elements</h3>
+                        <div class="element-list" id="riskElements">
+                            <!-- Risk elements will be populated here -->
+                        </div>
+                    </div>
+
+                    <div class="element-section">
+                        <h3 class="element-section-title skills-title">🎯 Skills Elements</h3>
+                        <div class="element-list" id="skillsElements">
+                            <!-- Skills elements will be populated here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Complete and accurate ACS data from FAA-S-ACS-25
+        const areas = {
+            'I': {
+                name: 'Fundamentals of Instructing',
+                description: 'Essential teaching concepts including human behavior, learning theory, course development, assessment techniques, and professional responsibilities for flight instructors.',
+                note: 'The evaluator must select Task E, Task F, and at least one other Task for initial flight instructor applicants. During a practical test for an added flight instructor rating or flight instructor reinstatement, the evaluator has discretion to evaluate the applicant on Fundamentals of Instructing.',
+                tasks: [
+                    { 
+                        id: 'A', 
+                        title: 'Effects of Human Behavior and Communication on the Learning Process', 
+                        k: 4, r: 2, s: 3,
+                        description: 'Human behavior elements, learner emotional reactions, teaching adult learners, and effective communication including basic elements, barriers, and skill development.'
+                    },
+                    { 
+                        id: 'B', 
+                        title: 'Learning Process', 
+                        k: 16, r: 3, s: 3,
+                        description: 'Learning theory, perceptions, knowledge acquisition, laws of learning, domains of learning, characteristics, scenario-based training, skill development, practice types, evaluation, distractions, errors, memory, retention, and transfer.'
+                    },
+                    { 
+                        id: 'C', 
+                        title: 'Course Development, Lesson Plans, and Classroom Training Techniques', 
+                        k: 10, r: 1, s: 1,
+                        description: 'Teaching process, course development, lesson preparation, material organization, training delivery methods, electronic learning, instructional aids, integrated flight instruction, problem-based instruction, and planning.'
+                    },
+                    { 
+                        id: 'D', 
+                        title: 'Student Evaluation, Assessment, and Testing', 
+                        k: 7, r: 1, s: 1,
+                        description: 'Purpose and characteristics of effective assessment, traditional and authentic assessments, choosing assessment methods, critiques, oral assessment, and piloting ability assessment.'
+                    },
+                    { 
+                        id: 'E', 
+                        title: 'Elements of Effective Teaching in a Professional Environment', 
+                        k: 5, r: 2, s: 1,
+                        description: 'Aviation instructor responsibilities, flight instructor responsibilities and qualifications, professional development, and instructor ethics and conduct.'
+                    },
+                    { 
+                        id: 'F', 
+                        title: 'Elements of Effective Teaching that Include Risk Management and Accident Prevention', 
+                        k: 6, r: 3, s: 3,
+                        description: 'Teaching risk identification and management, risk management tools (PAVE, FRATs), when to introduce risk management, teaching techniques by phase, managing risk during instruction, and ADM/CRM/SRM.'
+                    }
+                ]
+            },
+            'II': {
+                name: 'Technical Subject Areas',
+                description: 'Human factors, aerodynamics, systems, weather, regulations, and specialized operations knowledge required for flight instruction.',
+                note: 'The evaluator must select Tasks C, K, and at least one other Task from this Area of Operation. The evaluator must also select Task P for multiengine applicants.',
+                tasks: [
+                    { 
+                        id: 'A', 
+                        title: 'Human Factors', 
+                        k: 4, r: 4, s: 2,
+                        description: 'Aeromedical and physiological issues (hypoxia, hyperventilation, spatial disorientation, etc.), alcohol/drug regulations and effects, and ADM/CRM/SRM.'
+                    },
+                    { 
+                        id: 'B', 
+                        title: 'Visual Scanning and Collision Avoidance', 
+                        k: 8, r: 5, s: 4,
+                        description: 'Environmental conditions affecting vision, vestibular/visual illusions, see and avoid responsibilities, scanning procedures, blind spots, collision cues, high-risk situations, and attention division.'
+                    },
+                    { 
+                        id: 'C', 
+                        title: 'Runway Incursion Avoidance', 
+                        k: 6, r: 7, s: 1,
+                        description: 'Runway incursion definition, taxi instructions/clearances, airport markings/signs/lights, flight deck activities during taxi, and uncontrolled airport procedures.'
+                    },
+                    { 
+                        id: 'D', 
+                        title: 'Principles of Flight', 
+                        k: 6, r: 1, s: 1,
+                        description: 'Airfoil design characteristics, airplane stability/controllability, turning tendencies, forces acting on airplane, load factors, and wingtip vortices.'
+                    },
+                    { 
+                        id: 'E', 
+                        title: 'Aircraft Flight Controls and Operation of Systems', 
+                        k: 2, r: 4, s: 1,
+                        description: 'Primary/secondary flight controls, powerplant/propeller, landing gear, fuel/oil/hydraulic, electrical, avionics, pitot-static/vacuum systems, environmental, deicing/anti-icing, water rudders, and oxygen systems.'
+                    },
+                    { 
+                        id: 'F', 
+                        title: 'Performance and Limitations', 
+                        k: 5, r: 6, s: 2,
+                        description: 'Performance charts/tables/data, factors affecting performance, weight and balance terms, CG computation methods, and aerodynamics.'
+                    },
+                    { 
+                        id: 'G', 
+                        title: 'National Airspace System', 
+                        k: 5, r: 1, s: 3,
+                        description: 'Airspace classes and requirements, chart symbols, special use airspace, currency of publications, and special VFR requirements.'
+                    },
+                    { 
+                        id: 'H', 
+                        title: 'Navigation Systems and Radar Services', 
+                        k: 4, r: 5, s: 5,
+                        description: 'Ground-based navigation, satellite-based navigation, radar assistance to VFR aircraft, and transponder/ADS-B systems.'
+                    },
+                    { 
+                        id: 'I', 
+                        title: 'Navigation and Cross-Country Flight Planning', 
+                        k: 15, r: 6, s: 4,
+                        description: 'Route planning, altitude selection, course plotting, power settings, calculations (time, fuel, etc.), VFR flight plan elements, weather correlation, flight plan procedures, compass errors, pilotage/dead reckoning, and diversion procedures.'
+                    },
+                    { 
+                        id: 'J', 
+                        title: '14 CFR and Publications', 
+                        k: 6, r: 1, s: 1,
+                        description: '14 CFR parts 1, 61, 91; 49 CFR part 830; Advisory Circulars, INFOs, SAFOs; ACS/PTS; POH/AFM; and AIM.'
+                    },
+                    { 
+                        id: 'K', 
+                        title: 'Endorsements and Logbook Entries', 
+                        k: 7, r: 1, s: 1,
+                        description: 'Required logbook entries for instruction, student pilot endorsements, other pilot endorsements, practical test recommendations, flight review endorsements, instructor records, and renewal/reinstatement requirements.'
+                    },
+                    { 
+                        id: 'L', 
+                        title: 'Water and Seaplane Characteristics, Seaplane Bases, Maritime Rules, and Aids to Marine Navigation (ASES, AMES)', 
+                        k: 9, r: 4, s: 6,
+                        description: 'Water surface characteristics, float/hull construction effects, porpoising/skipping causes, seaplane base location/restrictions, right-of-way/sailing rules, marine navigation aids, naval vessel protection zones, and no wake zones.'
+                    },
+                    { 
+                        id: 'M', 
+                        title: 'Night Operations', 
+                        k: 9, r: 7, s: 1,
+                        description: 'Physiological aspects of night vision, lighting systems, airplane equipment requirements, personal equipment, night orientation/navigation, instrument verification, visual illusions, night taxi operations, and traffic position interpretation.'
+                    },
+                    { 
+                        id: 'N', 
+                        title: 'High Altitude Operations - Supplemental Oxygen', 
+                        k: 3, r: 4, s: 3,
+                        description: 'Regulatory requirements for supplemental oxygen, physiological factors (impairment, hypoxia symptoms, TUC), and operational factors (oxygen system types, aviator breathing oxygen, precautions).'
+                    },
+                    { 
+                        id: 'O', 
+                        title: 'High Altitude Operations - Pressurization', 
+                        k: 4, r: 2, s: 2,
+                        description: 'Aircraft pressurization system concepts and failure modes, physiological factors (impairment, hypoxia symptoms, TUC, rapid decompression effects).'
+                    },
+                    { 
+                        id: 'P', 
+                        title: 'One Engine Inoperative (OEI) Performance (AMEL, AMES)', 
+                        k: 7, r: 4, s: 1,
+                        description: 'Performance charts/tables/data usage, limitation effects, atmospheric condition effects, single/multiengine capabilities, OEI aerodynamics (critical engine, VMC effects, zero side slip), VMC/stall speed relationship, and engine failure response.'
+                    }
+                ]
+            },
+            'III': {
+                name: 'Preflight Preparation',
+                description: 'Pilot qualifications, airworthiness requirements, and weather information analysis for safe flight operations.',
+                note: 'The evaluator must select at least one Task from this Area of Operation.',
+                tasks: [
+                    { 
+                        id: 'A', 
+                        title: 'Pilot Qualifications', 
+                        k: 4, r: 2, s: 1,
+                        description: 'Certification, currency, and recordkeeping requirements; privileges and limitations of pilot certificates; medical certificates and BasicMed; and required documents for certificate/rating privileges.'
+                    },
+                    { 
+                        id: 'B', 
+                        title: 'Airworthiness Requirements', 
+                        k: 4, r: 1, s: 3,
+                        description: 'General airworthiness requirements and compliance, required aircraft certificates and inspections, Airworthiness Directives, Special Airworthiness Information Bulletins, special flight permits, and pilot-performed preventive maintenance.'
+                    },
+                    { 
+                        id: 'C', 
+                        title: 'Weather Information', 
+                        k: 4, r: 2, s: 3,
+                        description: 'Weather information sources, weather products and reports, weather charts and forecasts, weather hazards and their effects on flight, and weather decision-making for go/no-go decisions.'
+                    }
+                ]
+            },
+            'A': {
+                name: 'Practical Test Roles, Responsibilities, and Outcomes',
+                description: 'Guidelines for practical test requirements, renewal/reinstatement procedures, and evaluator responsibilities.',
+                note: 'This appendix outlines the specific tasks required for different types of practical tests and certificate renewals.',
+                tasks: [
+                    { 
+                        id: '1', 
+                        title: 'Flight Instructor Renewal/Reinstatement Requirements', 
+                        k: 3, r: 2, s: 1,
+                        description: 'Requirements for renewing or reinstating flight instructor certificates, including specific task requirements for different airplane categories.'
+                    },
+                    { 
+                        id: '2', 
+                        title: 'Practical Test Task Selection Guidelines', 
+                        k: 2, r: 1, s: 1,
+                        description: 'Guidelines for evaluators on selecting appropriate tasks for practical tests based on certificate type and applicant experience.'
+                    }
+                ]
+            },
+            'B': {
+                name: 'Safety of Flight',
+                description: 'Critical safety considerations, procedures, and requirements for conducting practical tests safely.',
+                note: 'This appendix covers essential safety protocols that must be followed during all practical tests.',
+                tasks: [
+                    { 
+                        id: '1', 
+                        title: 'General Safety Procedures', 
+                        k: 4, r: 3, s: 2,
+                        description: 'General safety considerations including traffic awareness, visual scanning, and collision avoidance procedures.'
+                    },
+                    { 
+                        id: '2', 
+                        title: 'Stall and Spin Awareness', 
+                        k: 3, r: 2, s: 1,
+                        description: 'Procedures for maintaining stall and spin awareness during training and testing.'
+                    },
+                    { 
+                        id: '3', 
+                        title: 'Use of Checklists and CRM/SRM', 
+                        k: 3, r: 2, s: 2,
+                        description: 'Proper checklist usage, crew resource management, and single-pilot resource management procedures.'
+                    },
+                    { 
+                        id: '4', 
+                        title: 'Positive Exchange of Flight Controls', 
+                        k: 2, r: 1, s: 1,
+                        description: 'Standardized procedures for exchanging flight controls between pilots during practical tests.'
+                    },
+                    { 
+                        id: '5', 
+                        title: 'Use of Distractions and ADM', 
+                        k: 3, r: 2, s: 1,
+                        description: 'Incorporating realistic distractions and evaluating aeronautical decision-making during practical tests.'
+                    },
+                    { 
+                        id: '6', 
+                        title: 'Multiengine Considerations', 
+                        k: 4, r: 3, s: 2,
+                        description: 'Special safety considerations for multiengine practical tests including engine failure procedures.'
+                    }
+                ]
+            },
+            'C': {
+                name: 'Aircraft, Equipment, and Operational Requirements & Limitations',
+                description: 'Aircraft requirements, equipment specifications, and operational limitations for practical tests.',
+                note: 'This appendix details the specific aircraft and equipment requirements for conducting practical tests.',
+                tasks: [
+                    { 
+                        id: '1', 
+                        title: 'Aircraft Requirements & Limitations', 
+                        k: 3, r: 2, s: 1,
+                        description: 'Minimum aircraft requirements, inoperative equipment procedures, and operational limitations for practical tests.'
+                    },
+                    { 
+                        id: '2', 
+                        title: 'Equipment Requirements & Limitations', 
+                        k: 4, r: 2, s: 2,
+                        description: 'Required equipment, automation management, EFB usage, and view limiting device requirements.'
+                    },
+                    { 
+                        id: '3', 
+                        title: 'Use of Flight Simulation Training Devices (FSTD)', 
+                        k: 3, r: 2, s: 1,
+                        description: 'Requirements and limitations for using FSTDs in practical tests and training programs.'
+                    },
+                    { 
+                        id: '4', 
+                        title: 'Use of Aviation Training Devices (ATD)', 
+                        k: 3, r: 2, s: 1,
+                        description: 'ATD approval process, limitations, and pilot time credit allowances for practical tests.'
+                    },
+                    { 
+                        id: '5', 
+                        title: 'Operational Requirements for Specific Tasks', 
+                        k: 5, r: 3, s: 2,
+                        description: 'Special operational requirements and limitations for specific tasks including takeoffs, landings, stalls, and emergency procedures.'
+                    }
+                ]
+            }
+        };
+
+        // Detailed task elements data from FAA-S-ACS-25
+        const taskElements = {
+            'I': {
+                'A': {
+                    knowledge: [
+                        { code: 'FI.I.A.K1', text: 'Elements of human behavior, including: definitions of human behavior, instructor and learner relationship, motivation, human needs, defense mechanisms' },
+                        { code: 'FI.I.A.K2', text: 'Learner emotional reactions, including: anxiety and stress, impatience, worry or lack of interest, physical discomfort/illness/fatigue/dehydration, apathy due to inadequate instruction' },
+                        { code: 'FI.I.A.K3', text: 'Teaching the adult learner' },
+                        { code: 'FI.I.A.K4', text: 'Effective communication, including: basic elements of communication, barriers to effective communication, developing communication skills' }
+                    ],
+                    risk: [
+                        { code: 'FI.I.A.R1', text: 'Recognizing and accommodating human behavior' },
+                        { code: 'FI.I.A.R2', text: 'Barriers to communication' }
+                    ],
+                    skills: [
+                        { code: 'FI.I.A.S1', text: 'Give examples of how human behavior affects motivation and learning' },
+                        { code: 'FI.I.A.S2', text: 'Describe what the instructor can do to deal with: serious abnormal emotional behavior, defense mechanisms' },
+                        { code: 'FI.I.A.S3', text: 'Use effective communication in ground and flight instruction' }
+                    ]
+                },
+                'B': {
+                    knowledge: [
+                        { code: 'FI.I.B.K1', text: 'Definitions of learning' },
+                        { code: 'FI.I.B.K2', text: 'Learning theory as it applies to ground and flight instruction, including: behaviorism, cognitive theory' },
+                        { code: 'FI.I.B.K3', text: 'Perceptions and insight' },
+                        { code: 'FI.I.B.K4', text: 'Acquiring knowledge' },
+                        { code: 'FI.I.B.K5', text: 'Laws of learning' },
+                        { code: 'FI.I.B.K6', text: 'Domains of learning, including: cognitive, affective, psychomotor' },
+                        { code: 'FI.I.B.K7', text: 'Characteristics of learning' },
+                        { code: 'FI.I.B.K8', text: 'Scenario-based training (SBT)' },
+                        { code: 'FI.I.B.K9', text: 'Acquiring skill knowledge, including: stages, knowledge of results, how to develop skills, learning plateaus' },
+                        { code: 'FI.I.B.K10', text: 'Types of practice' },
+                        { code: 'FI.I.B.K11', text: 'Evaluation versus critique' },
+                        { code: 'FI.I.B.K12', text: 'Distractions, interruptions, fixation, and inattention' },
+                        { code: 'FI.I.B.K13', text: 'Errors' },
+                        { code: 'FI.I.B.K14', text: 'Memory, including: sensory, short-term memory (STM) and long-term memory (LTM), how usage affects memory, forgetting' },
+                        { code: 'FI.I.B.K15', text: 'Retention of learning' },
+                        { code: 'FI.I.B.K16', text: 'Transfer of learning' }
+                    ],
+                    risk: [
+                        { code: 'FI.I.B.R1', text: 'Inadequate or incomplete instruction' },
+                        { code: 'FI.I.B.R2', text: 'Lack of learner motivation' },
+                        { code: 'FI.I.B.R3', text: 'Recognizing and correcting learner errors' }
+                    ],
+                    skills: [
+                        { code: 'FI.I.B.S1', text: 'Apply educational theories to ground and flight instruction' },
+                        { code: 'FI.I.B.S2', text: 'Recognize and correct conditions that undermine the learning process' },
+                        { code: 'FI.I.B.S3', text: 'Plan for and use techniques, including realistic distractions that teach flight students how to manage a workload' }
+                    ]
+                },
+                'C': {
+                    knowledge: [
+                        { code: 'FI.I.C.K1', text: 'Teaching, including: process, essential skills' },
+                        { code: 'FI.I.C.K2', text: 'Course of training' },
+                        { code: 'FI.I.C.K3', text: 'Preparation of a lesson, including: training objectives and completion standards, performance-based objectives, importance of ACS in aviation training curricula, decision-based objectives' },
+                        { code: 'FI.I.C.K4', text: 'Organization of material' },
+                        { code: 'FI.I.C.K5', text: 'Training delivery methods, including: lecture, discussion, guided discussion, cooperative or group learning, demonstration-performance, drill and practice' },
+                        { code: 'FI.I.C.K6', text: 'Electronic learning (e-Learning)' },
+                        { code: 'FI.I.C.K7', text: 'Instructional aids and training technologies, including: characteristics of effective instructional aids, reasons for use, guidelines for use, types' },
+                        { code: 'FI.I.C.K8', text: 'Integrated flight instruction' },
+                        { code: 'FI.I.C.K9', text: 'Problem-based instruction' },
+                        { code: 'FI.I.C.K10', text: 'Planning instructional activity, including: blocks of learning, training syllabus, lesson plans' }
+                    ],
+                    risk: [
+                        { code: 'FI.I.C.R1', text: 'Selection of teaching method' }
+                    ],
+                    skills: [
+                        { code: 'FI.I.C.S1', text: 'Prepare an instructional lesson plan using teaching methods and materials appropriate for Task and learner characteristics, including: aeronautical knowledge ground lesson applicable for a classroom, maneuver introduction and ground lesson' }
+                    ]
+                },
+                'D': {
+                    knowledge: [
+                        { code: 'FI.I.D.K1', text: 'Purpose and characteristics of effective assessment' },
+                        { code: 'FI.I.D.K2', text: 'Traditional assessments' },
+                        { code: 'FI.I.D.K3', text: 'Authentic assessments, including: learner-centered assessment, maneuver or procedure grades, assessing risk management skills' },
+                        { code: 'FI.I.D.K4', text: 'Choosing an effective assessment method' },
+                        { code: 'FI.I.D.K5', text: 'Purposes and types of critiques' },
+                        { code: 'FI.I.D.K6', text: 'Oral assessment, including: characteristics of effective questions, types of questions to avoid, answering learner questions' },
+                        { code: 'FI.I.D.K7', text: 'Assessment of piloting ability' }
+                    ],
+                    risk: [
+                        { code: 'FI.I.D.R1', text: 'Delivering an assessment' }
+                    ],
+                    skills: [
+                        { code: 'FI.I.D.S1', text: 'Use appropriate methods and techniques to assess learner performance in ground or flight training' }
+                    ]
+                },
+                'E': {
+                    knowledge: [
+                        { code: 'FI.I.E.K1', text: 'Aviation instructor responsibilities, including: helping learners, providing adequate instruction, training to established standards of performance, emphasizing the positive, minimizing learner frustrations' },
+                        { code: 'FI.I.E.K2', text: 'Flight instructor responsibilities, including supervision and surveillance during training' },
+                        { code: 'FI.I.E.K3', text: 'Flight instructor qualifications and professionalism' },
+                        { code: 'FI.I.E.K4', text: 'Professional development' },
+                        { code: 'FI.I.E.K5', text: 'Instructor ethics and conduct' }
+                    ],
+                    risk: [
+                        { code: 'FI.I.E.R1', text: 'Fulfilling instructor responsibilities' },
+                        { code: 'FI.I.E.R2', text: 'Exhibiting professionalism' }
+                    ],
+                    skills: [
+                        { code: 'FI.I.E.S1', text: 'Deliver ground or flight instruction on an evaluator-assigned Task in a manner consistent with instructor responsibilities and professional characteristics as stated in K1 through K5' }
+                    ]
+                },
+                'F': {
+                    knowledge: [
+                        { code: 'FI.I.F.K1', text: 'Teaching risk identification, assessment, and mitigation' },
+                        { code: 'FI.I.F.K2', text: 'Teaching risk management tools, including: PAVE checklist, Flight Risk Assessment Tools (FRATs)' },
+                        { code: 'FI.I.F.K3', text: 'When and how to introduce risk management' },
+                        { code: 'FI.I.F.K4', text: 'Risk management teaching techniques by phase of instruction' },
+                        { code: 'FI.I.F.K5', text: 'Managing risk during flight instruction, including: common flight instruction risks, best practices, special considerations while teaching takeoffs and landings' },
+                        { code: 'FI.I.F.K6', text: 'Aeronautical Decision-Making (ADM) to include using Crew Resource Management (CRM) or Single-Pilot Resource Management (SRM), as appropriate' }
+                    ],
+                    risk: [
+                        { code: 'FI.I.F.R1', text: 'Hazards associated with providing flight instruction' },
+                        { code: 'FI.I.F.R2', text: 'Obstacles to maintaining situational awareness during flight instruction' },
+                        { code: 'FI.I.F.R3', text: 'Recognizing and managing hazards arising from human behavior, including hazardous attitudes' }
+                    ],
+                    skills: [
+                        { code: 'FI.I.F.S1', text: 'Use scenario-based training (SBT) to demonstrate, teach, and assess risk management and Aeronautical Decision-Making (ADM) skills in the context of a Task specified by the evaluator' },
+                        { code: 'FI.I.F.S2', text: 'Identify, assess, and mitigate risks commonly associated with flight instruction by maintaining: awareness and oversight of the learner\'s actions, awareness of the learner\'s cognitive/physiological state, overall situational awareness of the aircraft\'s dynamic state' },
+                        { code: 'FI.I.F.S3', text: 'Model and teach safety practices, including maintaining: collision avoidance while simultaneously providing instruction, avoidance of unnecessary distractions, coordinated flight, awareness of who is manipulating controls, continuous awareness of the aircraft\'s dynamic state and position in the NAS' }
+                    ]
+                }
+            },
+            'II': {
+                'A': {
+                    knowledge: [
+                        { code: 'AI.II.A.K1', text: 'Symptoms, recognition, causes, effects, and corrective actions associated with aeromedical and physiological issues, including: hypoxia, hyperventilation, middle ear and sinus problems, spatial disorientation, motion sickness, carbon monoxide poisoning, stress, fatigue, dehydration and nutrition, hypothermia, optical illusions, dissolved nitrogen in the bloodstream after scuba dives' },
+                        { code: 'AI.II.A.K2', text: 'Regulations regarding use of alcohol and drugs' },
+                        { code: 'AI.II.A.K3', text: 'Effects of alcohol, drugs, and over-the-counter medications' },
+                        { code: 'AI.II.A.K4', text: 'Aeronautical Decision-Making (ADM) to include using Crew Resource Management (CRM) or Single-Pilot Resource Management (SRM), as appropriate' }
+                    ],
+                    risk: [
+                        { code: 'AI.II.A.R1', text: 'Aeromedical and physiological issues' },
+                        { code: 'AI.II.A.R2', text: 'Hazardous attitudes' },
+                        { code: 'AI.II.A.R3', text: 'Distractions, task prioritization, loss of situational awareness, or disorientation' },
+                        { code: 'AI.II.A.R4', text: 'Confirmation and expectation bias' }
+                    ],
+                    skills: [
+                        { code: 'AI.II.A.S1', text: 'Associate the symptoms and effects for at least three of the conditions listed in K1a through K1l with the cause(s) and corrective action(s)' },
+                        { code: 'AI.II.A.S2', text: 'Perform self-assessment, including fitness for flight and personal minimums, for actual flight or a scenario given by the evaluator' }
+                    ]
+                },
+                'B': {
+                    knowledge: [
+                        { code: 'AI.II.B.K1', text: 'Environmental conditions that degrade vision' },
+                        { code: 'AI.II.B.K2', text: 'Vestibular and visual illusions' },
+                        { code: 'AI.II.B.K3', text: '"See and Avoid" responsibilities' },
+                        { code: 'AI.II.B.K4', text: 'Visual scanning procedure and the importance of peripheral vision' },
+                        { code: 'AI.II.B.K5', text: 'Aircraft blind spots and clearing procedures' },
+                        { code: 'AI.II.B.K6', text: 'Visual cues of an impending mid-air collision' },
+                        { code: 'AI.II.B.K7', text: 'Situations that create the greatest collision risk' },
+                        { code: 'AI.II.B.K8', text: 'Division of attention inside and outside the aircraft' }
+                    ],
+                    risk: [
+                        { code: 'AI.II.B.R1', text: 'Distractions to visual scanning' },
+                        { code: 'AI.II.B.R2', text: 'Relaxed intermediate focal distance' },
+                        { code: 'AI.II.B.R3', text: 'High volume operational environments' },
+                        { code: 'AI.II.B.R4', text: 'Collision reaction time' },
+                        { code: 'AI.II.B.R5', text: 'Use of a safety pilot' }
+                    ],
+                    skills: [
+                        { code: 'AI.II.B.S1', text: 'Effectively scan using short regularly spaced eye movements' },
+                        { code: 'AI.II.B.S2', text: 'Scan around physical obstructions' },
+                        { code: 'AI.II.B.S3', text: 'Use appropriate visual scanning techniques' },
+                        { code: 'AI.II.B.S4', text: 'Use electronic traffic alert systems, if available' }
+                    ]
+                },
+                'C': {
+                    knowledge: [
+                        { code: 'AI.II.C.K1', text: 'Runway incursion definition' },
+                        { code: 'AI.II.C.K2', text: 'Taxi instructions/clearances' },
+                        { code: 'AI.II.C.K3', text: 'The importance of recording taxi instructions and reviewing taxi routes on the airport diagram' },
+                        { code: 'AI.II.C.K4', text: 'Airport markings, signs, and lights including the importance of hold lines associated with runways' },
+                        { code: 'AI.II.C.K5', text: 'Appropriate flight deck activities during taxiing, including taxi route planning, briefing the location of Hot Spots, communicating and coordinating with ATC' },
+                        { code: 'AI.II.C.K6', text: 'Communication and operational procedures at uncontrolled airports' }
+                    ],
+                    risk: [
+                        { code: 'AI.II.C.R1', text: 'Distractions, task prioritization, loss of situational awareness, or disorientation' },
+                        { code: 'AI.II.C.R2', text: 'Confirmation or expectation bias as related to taxi instructions' },
+                        { code: 'AI.II.C.R3', text: 'Entering or crossing runways' },
+                        { code: 'AI.II.C.R4', text: 'Night taxi operations' },
+                        { code: 'AI.II.C.R5', text: 'Low visibility taxi operations' },
+                        { code: 'AI.II.C.R6', text: 'Runway incursion after landing' },
+                        { code: 'AI.II.C.R7', text: 'Operating on taxiways between parallel runways' }
+                    ],
+                    skills: [
+                        { code: 'AI.II.C.S1', text: 'Deliver instruction on the elements and techniques for runway incursion avoidance' }
+                    ]
+                },
+                'D': {
+                    knowledge: [
+                        { code: 'AI.II.D.K1', text: 'Airfoil design characteristics' },
+                        { code: 'AI.II.D.K2', text: 'Airplane stability, maneuverability and controllability' },
+                        { code: 'AI.II.D.K3', text: 'Turning tendency (e.g., torque, p-factor, spiraling slipstream, and gyroscopic precession)' },
+                        { code: 'AI.II.D.K4', text: 'Forces acting on an airplane' },
+                        { code: 'AI.II.D.K5', text: 'Load factors in airplane design' },
+                        { code: 'AI.II.D.K6', text: 'Wingtip vortices and appropriate precautions' }
+                    ],
+                    risk: [
+                        { code: 'AI.II.D.R1', text: 'The basic aerodynamic principles of flight' }
+                    ],
+                    skills: [
+                        { code: 'AI.II.D.S1', text: 'Deliver instruction on principles of flight, including at least three of the elements listed in K1 through K6' }
+                    ]
+                },
+                'E': {
+                    knowledge: [
+                        { code: 'AI.II.E.K1', text: 'Airplane systems, including: primary flight controls, secondary flight controls, powerplant and propeller, landing gear, fuel/oil/hydraulic, electrical, avionics, pitot-static/vacuum/pressure and associated flight instruments, environmental, deicing and anti-icing, water rudders (ASES, AMES), oxygen system' },
+                        { code: 'AI.II.E.K2', text: 'Indications of and procedures for managing system abnormalities or failures' }
+                    ],
+                    risk: [
+                        { code: 'AI.II.E.R1', text: 'Detection of system malfunctions or failures' },
+                        { code: 'AI.II.E.R2', text: 'Management of a system failure' },
+                        { code: 'AI.II.E.R3', text: 'Monitoring and management of automated systems' },
+                        { code: 'AI.II.E.R4', text: 'Providing instruction in unfamiliar aircraft or operating with unfamiliar flight display systems and avionics' }
+                    ],
+                    skills: [
+                        { code: 'AI.II.E.S1', text: 'Operate at least three of the systems listed in K1a through K1l appropriately' }
+                    ]
+                },
+                'F': {
+                    knowledge: [
+                        { code: 'AI.II.F.K1', text: 'Elements related to performance and limitations by explaining the use of charts, tables, and data to determine performance' },
+                        { code: 'AI.II.F.K2', text: 'Factors affecting performance, including: atmospheric conditions, pilot technique, airplane configuration, airport environment, loading and weight and balance' },
+                        { code: 'AI.II.F.K3', text: 'Weight and balance terms, including: basic empty weight, maximum gross weight, arm, moment, reference datum, center of gravity (CG) and CG limits, and useful load' },
+                        { code: 'AI.II.F.K4', text: 'Methods for computing CG' },
+                        { code: 'AI.II.F.K5', text: 'Aerodynamics' }
+                    ],
+                    risk: [
+                        { code: 'AI.II.F.R1', text: 'Use of performance charts, tables, and data' },
+                        { code: 'AI.II.F.R2', text: 'Airplane limitations' },
+                        { code: 'AI.II.F.R3', text: 'Possible differences between calculated performance and actual performance' },
+                        { code: 'AI.II.F.R4', text: 'Exceeding weight limits' },
+                        { code: 'AI.II.F.R5', text: 'Operating outside of CG limits' },
+                        { code: 'AI.II.F.R6', text: 'Shifting, adding, and removing weight' }
+                    ],
+                    skills: [
+                        { code: 'AI.II.F.S1', text: 'Use the appropriate airplane performance charts, tables, and data' },
+                        { code: 'AI.II.F.S2', text: 'Compute the weight and balance, correct out-of-center of gravity loading errors and determine if the weight and balance remains within limits during all phases of flight' }
+                    ]
+                },
+                'G': {
+                    knowledge: [
+                        { code: 'AI.II.G.K1', text: 'Airspace classes and associated requirements and limitations' },
+                        { code: 'AI.II.G.K2', text: 'Chart symbols' },
+                        { code: 'AI.II.G.K3', text: 'Special use airspace (SUA), special flight rules areas (SFRA), temporary flight restrictions (TFR), and other airspace areas' },
+                        { code: 'AI.II.G.K4', text: 'Currency of publications' },
+                        { code: 'AI.II.G.K5', text: 'Special visual flight rules (VFR) requirements' }
+                    ],
+                    risk: [
+                        { code: 'AI.II.G.R1', text: 'Various classes and types of airspace' }
+                    ],
+                    skills: [
+                        { code: 'AI.II.G.S1', text: 'Identify and comply with the requirements for basic VFR weather minimums and flying in particular classes of airspace' },
+                        { code: 'AI.II.G.S2', text: 'Correctly identify airspace and operate in accordance with associated communication and equipment requirements' },
+                        { code: 'AI.II.G.S3', text: 'Identify the requirements for operating in SUA or within a TFR. Identify and comply with special air traffic rules (SATR) and SFRA operations, if applicable' }
+                    ]
+                },
+                'H': {
+                    knowledge: [
+                        { code: 'AI.II.H.K1', text: 'Ground-based navigation (identification, orientation, course determination, equipment, tests, regulations, interference, appropriate use of navigation data, and signal integrity)' },
+                        { code: 'AI.II.H.K2', text: 'Satellite-based navigation (e.g., equipment, regulations, authorized use of databases, and Receiver Autonomous Integrity Monitoring (RAIM))' },
+                        { code: 'AI.II.H.K3', text: 'Radar assistance to visual flight rules (VFR) aircraft (e.g., operations, equipment, available services, traffic advisories)' },
+                        { code: 'AI.II.H.K4', text: 'Transponder (Mode(s) A, C, and S) and Automatic Dependent Surveillance-Broadcast (ADS-B)' }
+                    ],
+                    risk: [
+                        { code: 'AI.II.H.R1', text: 'Management of automated navigation and autoflight systems' },
+                        { code: 'AI.II.H.R2', text: 'Distractions, task prioritization, loss of situational awareness, or disorientation' },
+                        { code: 'AI.II.H.R3', text: 'Limitations of the navigation system in use' },
+                        { code: 'AI.II.H.R4', text: 'Loss of a navigation signal' },
+                        { code: 'AI.II.H.R5', text: 'Use of an electronic flight bag (EFB), if used' }
+                    ],
+                    skills: [
+                        { code: 'AI.II.H.S1', text: 'Use an airborne electronic navigation system' },
+                        { code: 'AI.II.H.S2', text: 'Determine the airplane\'s position using the navigation system' },
+                        { code: 'AI.II.H.S3', text: 'Intercept and track a given course, radial, or bearing' },
+                        { code: 'AI.II.H.S4', text: 'Recognize and describe the indication of station or waypoint passage' },
+                        { code: 'AI.II.H.S5', text: 'Use proper communication procedures when utilizing radar services' }
+                    ]
+                },
+                'I': {
+                    knowledge: [
+                        { code: 'AI.II.I.K1', text: 'Route planning, including consideration of different classes and special use airspace (SUA) and selection of appropriate and available navigation/communication systems and facilities' },
+                        { code: 'AI.II.I.K2', text: 'Altitude selection accounting for terrain and obstacles, glide distance of airplane, visual flight rules (VFR) cruising altitudes, and effect of wind' },
+                        { code: 'AI.II.I.K3', text: 'Plotting a course' },
+                        { code: 'AI.II.I.K4', text: 'Power setting selection' },
+                        { code: 'AI.II.I.K5', text: 'Calculating: time, climb and descent rates, course, distance, heading, true airspeed, and groundspeed; estimated time of arrival, including conversion to universal coordinated time (UTC); fuel requirements, including reserve' },
+                        { code: 'AI.II.I.K6', text: 'Elements of a VFR flight plan' },
+                        { code: 'AI.II.I.K7', text: 'Correlate weather information to make a go/no-go decision' },
+                        { code: 'AI.II.I.K8', text: 'Procedures for activating and closing a VFR flight plan' },
+                        { code: 'AI.II.I.K9', text: 'Magnetic compass errors' },
+                        { code: 'AI.II.I.K10', text: 'Pilotage and dead reckoning' },
+                        { code: 'AI.II.I.K11', text: 'Planned calculations versus actual results and required corrections' },
+                        { code: 'AI.II.I.K12', text: 'Diversion and lost procedures' },
+                        { code: 'AI.II.I.K13', text: 'Inflight intercept procedures' },
+                        { code: 'AI.II.I.K14', text: 'Use of an electronic flight bag (EFB), if used' },
+                        { code: 'AI.II.I.K15', text: 'Chart symbols' }
+                    ],
+                    risk: [
+                        { code: 'AI.II.I.R1', text: 'Pilot' },
+                        { code: 'AI.II.I.R2', text: 'Aircraft' },
+                        { code: 'AI.II.I.R3', text: 'Environment (e.g., weather, airports, airspace, terrain, obstacles)' },
+                        { code: 'AI.II.I.R4', text: 'External pressures' },
+                        { code: 'AI.II.I.R5', text: 'Limitations of air traffic control (ATC) services' },
+                        { code: 'AI.II.I.R6', text: 'Fuel planning' }
+                    ],
+                    skills: [
+                        { code: 'AI.II.I.S1', text: 'Prepare, present, and explain a cross-country flight plan assigned by the evaluator, including a risk analysis to the first fuel stop' },
+                        { code: 'AI.II.I.S2', text: 'Apply pertinent information from appropriate and current aeronautical charts, Chart Supplements; Notices to Air Missions (NOTAMs) relative to airport, runway and taxiway closures; and other flight publications' },
+                        { code: 'AI.II.I.S3', text: 'Create a navigation plan and simulate filing a VFR flight plan' },
+                        { code: 'AI.II.I.S4', text: 'Recalculate fuel reserves based on a scenario provided by the evaluator' }
+                    ]
+                },
+                'J': {
+                    knowledge: [
+                        { code: 'AI.II.J.K1', text: '14 CFR parts 1, 61, and 91' },
+                        { code: 'AI.II.J.K2', text: '49 CFR part 830' },
+                        { code: 'AI.II.J.K3', text: 'Advisory Circulars, INFOs, and SAFOs' },
+                        { code: 'AI.II.J.K4', text: 'Airman Certification Standards or Practical Test Standards' },
+                        { code: 'AI.II.J.K5', text: 'Pilot\'s Operating Handbooks or flight manuals' },
+                        { code: 'AI.II.J.K6', text: 'Aeronautical Information Manual (AIM)' }
+                    ],
+                    risk: [
+                        { code: 'AI.II.J.R1', text: 'Use of expired charts, manuals, or publications without current updates' }
+                    ],
+                    skills: [
+                        { code: 'AI.II.J.S1', text: 'Teach at least one of the elements listed in K1 through K6' }
+                    ]
+                },
+                'K': {
+                    knowledge: [
+                        { code: 'AI.II.K.K1', text: 'Required logbook entries for instruction given' },
+                        { code: 'AI.II.K.K2', text: 'Required student pilot pre-solo knowledge test, solo endorsements, and logbook entries' },
+                        { code: 'AI.II.K.K3', text: 'Other required pilot logbook endorsements (e.g., Class B Airspace, Special Federal Aviation Regulation (SFAR))' },
+                        { code: 'AI.II.K.K4', text: 'Preparation of a recommendation for a pilot practical test, including appropriate logbook entry and relevant certificate/rating application for: initial pilot certification, additional pilot certification, additional aircraft qualification' },
+                        { code: 'AI.II.K.K5', text: 'Endorsement of a pilot logbook for the satisfactory completion of an FAA flight review' },
+                        { code: 'AI.II.K.K6', text: 'Required flight instructor records' },
+                        { code: 'AI.II.K.K7', text: 'Flight instructor renewal and reinstatement requirements' }
+                    ],
+                    risk: [
+                        { code: 'AI.II.K.R1', text: 'Endorsements without appropriate limitations or expiration dates' }
+                    ],
+                    skills: [
+                        { code: 'AI.II.K.S1', text: 'Describe and prepare logbook entries/endorsements required for at least two of the events specified in the elements or sub-elements of K1 through K5' }
+                    ]
+                },
+                'L': {
+                    knowledge: [
+                        { code: 'AI.II.L.K1', text: 'Characteristics of a water surface as affected by features, such as: size and location, protected and unprotected areas, surface wind, direction and strength of water current, floating and partially submerged debris, sandbars/islands/shoals, vessel traffic and wakes, direction and height of waves, other characteristics specific to the area' },
+                        { code: 'AI.II.L.K2', text: 'Float and hull construction, and its effect on seaplane performance' },
+                        { code: 'AI.II.L.K3', text: 'Causes of porpoising and skipping, and the pilot action needed to prevent or correct these occurrences' },
+                        { code: 'AI.II.L.K4', text: 'How to locate and identify seaplane bases on charts or in directories' },
+                        { code: 'AI.II.L.K5', text: 'Operating restrictions at various bases' },
+                        { code: 'AI.II.L.K6', text: 'Right-of-way, steering, and sailing rules pertinent to seaplane operation' },
+                        { code: 'AI.II.L.K7', text: 'Marine navigation aids, such as buoys, beacons, lights, sound signals, and range markers' },
+                        { code: 'AI.II.L.K8', text: 'Naval vessel protection zones' },
+                        { code: 'AI.II.L.K9', text: 'No wake zones' }
+                    ],
+                    risk: [
+                        { code: 'AI.II.L.R1', text: 'Local conditions' },
+                        { code: 'AI.II.L.R2', text: 'Impact of marine traffic' },
+                        { code: 'AI.II.L.R3', text: 'Right-of-way and sailing rules pertinent to seaplane operations' },
+                        { code: 'AI.II.L.R4', text: 'Limited services and assistance available at seaplane bases' }
+                    ],
+                    skills: [
+                        { code: 'AI.II.L.S1', text: 'Explain how float and hull construction can affect seaplane performance' },
+                        { code: 'AI.II.L.S2', text: 'Describe how to correct for porpoising and skipping' },
+                        { code: 'AI.II.L.S3', text: 'Identify marine navigation aids' },
+                        { code: 'AI.II.L.S4', text: 'Describe correct right-of-way, steering, and sailing operations' },
+                        { code: 'AI.II.L.S5', text: 'Assess the water surface characteristics for the proposed flight' },
+                        { code: 'AI.II.L.S6', text: 'Identify restrictions at local seaplane bases' }
+                    ]
+                },
+                'M': {
+                    knowledge: [
+                        { code: 'AI.II.M.K1', text: 'Physiological aspects of vision related to night flying' },
+                        { code: 'AI.II.M.K2', text: 'Lighting systems identifying airports, runways, taxiways and obstructions, as well as pilot controlled lighting' },
+                        { code: 'AI.II.M.K3', text: 'Airplane equipment and lighting requirements for night operations' },
+                        { code: 'AI.II.M.K4', text: 'Personal equipment essential for night flight' },
+                        { code: 'AI.II.M.K5', text: 'Night orientation, navigation, chart reading techniques and methods for maintaining night vision effectiveness' },
+                        { code: 'AI.II.M.K6', text: 'Use of instruments to verify the aircraft attitude at night' },
+                        { code: 'AI.II.M.K7', text: 'Visual illusions at night' },
+                        { code: 'AI.II.M.K8', text: 'Night taxi operations' },
+                        { code: 'AI.II.M.K9', text: 'Interpretation of traffic position and direction based solely on position lights' }
+                    ],
+                    risk: [
+                        { code: 'AI.II.M.R1', text: 'Inoperative equipment' },
+                        { code: 'AI.II.M.R2', text: 'Weather considerations specific to night operations' },
+                        { code: 'AI.II.M.R3', text: 'Collision hazards' },
+                        { code: 'AI.II.M.R4', text: 'Distractions, task prioritization, loss of situational awareness, or disorientation' },
+                        { code: 'AI.II.M.R5', text: 'Effect of visual illusions and night adaptation during all phases of night flying' },
+                        { code: 'AI.II.M.R6', text: 'Runway incursion' },
+                        { code: 'AI.II.M.R7', text: 'Night currency versus proficiency' }
+                    ],
+                    skills: [
+                        { code: 'AI.II.M.S1', text: 'Teach at least one of the elements listed in K1 through K9' }
+                    ]
+                },
+                'N': {
+                    knowledge: [
+                        { code: 'AI.II.N.K1', text: 'Regulatory requirements for supplemental oxygen use by flight crew and passengers' },
+                        { code: 'AI.II.N.K2', text: 'Physiological factors, including: impairment, symptoms of hypoxia, time of useful consciousness (TUC)' },
+                        { code: 'AI.II.N.K3', text: 'Operational factors, including: characteristics/limitations/applicability of continuous flow/demand/pressure-demand oxygen systems, differences between and identification of "aviator\'s breathing oxygen" and other types of oxygen, precautions when using supplemental oxygen systems' }
+                    ],
+                    risk: [
+                        { code: 'AI.II.N.R1', text: 'High altitude flight' },
+                        { code: 'AI.II.N.R2', text: 'Use of supplemental oxygen' },
+                        { code: 'AI.II.N.R3', text: 'Management of compressed gas containers' },
+                        { code: 'AI.II.N.R4', text: 'Combustion hazards in an oxygen-rich environment' }
+                    ],
+                    skills: [
+                        { code: 'AI.II.N.S1', text: 'Provide an adequate briefing on use of supplemental oxygen equipment' },
+                        { code: 'AI.II.N.S2', text: 'Operate or simulate operation of the installed or portable oxygen equipment in the aircraft, if installed or available' },
+                        { code: 'AI.II.N.S3', text: 'Determine the quantity of supplemental oxygen required in a scenario given by the evaluator' }
+                    ]
+                },
+                'O': {
+                    knowledge: [
+                        { code: 'AI.II.O.K1', text: 'Fundamental concepts of aircraft pressurization system, including failure modes' },
+                        { code: 'AI.II.O.K2', text: 'Physiological factors, including: impairment, symptoms of hypoxia, time of useful consciousness (TUC), effects of rapid decompression on crew and passengers' }
+                    ],
+                    risk: [
+                        { code: 'AI.II.O.R1', text: 'High altitude flight' },
+                        { code: 'AI.II.O.R2', text: 'Malfunction of pressurization system, if equipment is installed' }
+                    ],
+                    skills: [
+                        { code: 'AI.II.O.S1', text: 'Operate the pressurization system, if equipment is installed' },
+                        { code: 'AI.II.O.S2', text: 'Respond appropriately to simulated pressurization malfunctions, if equipment is installed' }
+                    ]
+                },
+                'P': {
+                    knowledge: [
+                        { code: 'AI.II.P.K1', text: 'Proficient use of appropriate performance charts, tables, graphs, or other data to determine airplane performance and limitations for all phases of flight' },
+                        { code: 'AI.II.P.K2', text: 'Effects of exceeding limitations' },
+                        { code: 'AI.II.P.K3', text: 'Effects of atmospheric conditions on performance' },
+                        { code: 'AI.II.P.K4', text: 'Factors to be considered to determine required performance is within the airplane\'s single and multiengine capabilities' },
+                        { code: 'AI.II.P.K5', text: 'Aerodynamics of OEI operation including: critical engine, effects of bank angle on VMC, zero side slip, reasons for loss of directional control' },
+                        { code: 'AI.II.P.K6', text: 'The relationship between minimum control speed (VMC) and stall speed and the effect of density altitude on that relationship' },
+                        { code: 'AI.II.P.K7', text: 'How to determine the best course of action after an engine failure' }
+                    ],
+                    risk: [
+                        { code: 'AI.II.P.R1', text: 'Exceeding the critical angle of attack' },
+                        { code: 'AI.II.P.R2', text: 'Loss of directional control' },
+                        { code: 'AI.II.P.R3', text: 'Flying over terrain that exceeds the single engine service ceiling' },
+                        { code: 'AI.II.P.R4', text: 'Fuel management' }
+                    ],
+                    skills: [
+                        { code: 'AI.II.P.S1', text: 'Compute the expected single engine climb performance' }
+                    ]
+                }
+            }
+        };
+
+        // Global variables
+        let currentAreaId = '';
+        let studyMode = false;
+        let progress = {
+            areas: {},
+            tasks: {},
+            elements: {}
+        };
+
+        // Load progress from localStorage
+        function loadProgress() {
+            const saved = localStorage.getItem('cfi_acs_progress');
+            if (saved) {
+                progress = JSON.parse(saved);
+            }
+        }
+
+        // Save progress to localStorage
+        function saveProgress() {
+            localStorage.setItem('cfi_acs_progress', JSON.stringify(progress));
+        }
+
+        // Initialize progress tracking
+        function initializeProgress() {
+            loadProgress();
+            
+            // Initialize areas if not exists
+            Object.keys(areas).forEach(areaId => {
+                if (!progress.areas[areaId]) {
+                    progress.areas[areaId] = {
+                        studied: false,
+                        completed: false,
+                        lastStudied: null
+                    };
+                }
+                
+                // Initialize tasks
+                areas[areaId].tasks.forEach(task => {
+                    const taskKey = `${areaId}-${task.id}`;
+                    if (!progress.tasks[taskKey]) {
+                        progress.tasks[taskKey] = {
+                            studied: false,
+                            completed: false,
+                            lastStudied: null
+                        };
+                    }
+                });
+            });
+            
+            saveProgress();
+        }
+
+        // Mark area as studied
+        function markAreaStudied(areaId) {
+            progress.areas[areaId].studied = true;
+            progress.areas[areaId].lastStudied = new Date().toISOString();
+            saveProgress();
+            updateProgressDisplay();
+        }
+
+        // Mark task as studied
+        function markTaskStudied(areaId, taskId) {
+            const taskKey = `${areaId}-${taskId}`;
+            progress.tasks[taskKey].studied = true;
+            progress.tasks[taskKey].lastStudied = new Date().toISOString();
+            saveProgress();
+            updateProgressDisplay();
+        }
+
+        // Unmark task as studied
+        function unmarkTaskStudied(areaId, taskId) {
+            const taskKey = `${areaId}-${taskId}`;
+            progress.tasks[taskKey].studied = false;
+            progress.tasks[taskKey].lastStudied = null;
+            saveProgress();
+            updateProgressDisplay();
+        }
+
+        // Toggle study mode
+        function toggleStudyMode() {
+            studyMode = !studyMode;
+            document.body.classList.toggle('study-mode', studyMode);
+            updateStudyModeButton();
+            updateProgressDisplay();
+        }
+
+        // Update study mode button
+        function updateStudyModeButton() {
+            const button = document.getElementById('studyModeButton');
+            if (button) {
+                button.textContent = studyMode ? '📚 Exit Study Mode' : '📖 Enter Study Mode';
+                button.className = studyMode ? 'study-mode-btn active' : 'study-mode-btn';
+            }
+        }
+
+        // Update progress display
+        function updateProgressDisplay() {
+            if (!studyMode) return;
+            
+            // Update area progress indicators
+            Object.keys(areas).forEach(areaId => {
+                const areaCard = document.querySelector(`[onclick="showAreaDetail('${areaId}')"]`);
+                if (areaCard) {
+                    const progressIndicator = areaCard.querySelector('.progress-indicator');
+                    if (progressIndicator) {
+                        const areaProgress = progress.areas[areaId];
+                        progressIndicator.className = `progress-indicator ${areaProgress.studied ? 'studied' : 'not-studied'}`;
+                        progressIndicator.title = areaProgress.studied ? 
+                            `Studied on ${new Date(areaProgress.lastStudied).toLocaleDateString()}` : 
+                            'Not yet studied';
+                    }
+                }
+            });
+            
+            // Update task progress indicators
+            Object.keys(progress.tasks).forEach(taskKey => {
+                const [areaId, taskId] = taskKey.split('-');
+                const taskCard = document.querySelector(`[onclick="showTaskDetail('${areaId}', '${taskId}')"]`);
+                if (taskCard) {
+                    const progressIndicator = taskCard.querySelector('.progress-indicator');
+                    if (progressIndicator) {
+                        const taskProgress = progress.tasks[taskKey];
+                        progressIndicator.className = `progress-indicator ${taskProgress.studied ? 'studied' : 'not-studied'}`;
+                        progressIndicator.title = taskProgress.studied ? 
+                            `Studied on ${new Date(taskProgress.lastStudied).toLocaleDateString()}` : 
+                            'Not yet studied';
+                    }
+                }
+            });
+        }
+
+        function showAreaDetail(areaId) {
+            const area = areas[areaId];
+            if (!area) {
+                alert('Area details not available yet');
+                return;
+            }
+
+            // Update area info
+            document.getElementById('areaNumber').textContent = 'Area ' + areaId;
+            document.getElementById('areaName').textContent = area.name;
+            document.getElementById('areaDescription').textContent = area.description;
+            document.getElementById('evaluatorNote').textContent = area.note;
+
+            // Clear and populate tasks
+            const container = document.getElementById('tasksContainer');
+            container.innerHTML = '';
+
+            area.tasks.forEach(task => {
+                const taskDiv = document.createElement('div');
+                taskDiv.className = 'task-card';
+                taskDiv.onclick = () => showTaskDetail(areaId, task.id);
+                
+                const taskKey = `${areaId}-${task.id}`;
+                const taskProgress = progress.tasks[taskKey] || { studied: false };
+                
+                taskDiv.innerHTML = `
+                    <div class="task-number">Task ${task.id}</div>
+                    <div class="task-title">${task.title}</div>
+                    <div class="task-objective">${task.description || 'Click for detailed breakdown of Knowledge, Risk Management, and Skills elements with official ACS codes.'}</div>
+                    <div class="task-elements">
+                        <span class="element-badge knowledge-badge">Knowledge: ${task.k} elements</span>
+                        <span class="element-badge risk-badge">Risk: ${task.r} elements</span>
+                        <span class="element-badge skills-badge">Skills: ${task.s} elements</span>
+                    </div>
+                    <div class="progress-indicator ${taskProgress.studied ? 'studied' : 'not-studied'}" title="${taskProgress.studied ? 'Studied' : 'Not yet studied'}"></div>
+                `;
+                
+                container.appendChild(taskDiv);
+            });
+
+            // Set current area and show area detail
+            currentAreaId = areaId;
+            document.getElementById('homePage').classList.add('hidden');
+            document.getElementById('areaDetailView').classList.remove('hidden');
+            document.getElementById('taskDetailView').classList.add('hidden');
+        }
+
+        function showTaskDetail(areaId, taskId) {
+            const area = areas[areaId];
+            const task = area.tasks.find(t => t.id === taskId);
+            const elements = taskElements[areaId] && taskElements[areaId][taskId];
+            
+            if (!area || !task || !elements) {
+                alert('Task details not available yet');
+                return;
+            }
+
+            // Mark area as studied when viewing tasks
+            markAreaStudied(areaId);
+
+            // Update task detail header
+            document.getElementById('taskAreaNumber').textContent = 'Area ' + areaId;
+            document.getElementById('taskTitle').textContent = 'Task ' + taskId + ' - ' + task.title;
+            document.getElementById('taskDescription').textContent = task.description || '';
+
+            // Update study status
+            const taskKey = `${areaId}-${taskId}`;
+            const taskProgress = progress.tasks[taskKey] || { studied: false };
+            const studyStatus = document.getElementById('studyStatus');
+            const markBtn = document.getElementById('markStudiedBtn');
+            
+            if (taskProgress.studied) {
+                studyStatus.textContent = `Studied on ${new Date(taskProgress.lastStudied).toLocaleDateString()}`;
+                studyStatus.className = 'study-status studied';
+                markBtn.textContent = '❌ Unmark as Studied';
+                markBtn.className = 'mark-studied-btn unmark';
+                markBtn.disabled = false;
+            } else {
+                studyStatus.textContent = 'Not yet studied';
+                studyStatus.className = 'study-status';
+                markBtn.textContent = '✅ Mark as Studied';
+                markBtn.className = 'mark-studied-btn';
+                markBtn.disabled = false;
+            }
+
+            // Populate knowledge elements
+            const knowledgeContainer = document.getElementById('knowledgeElements');
+            knowledgeContainer.innerHTML = '';
+            elements.knowledge.forEach(element => {
+                const elementDiv = document.createElement('div');
+                elementDiv.className = 'element-item knowledge';
+                elementDiv.innerHTML = `
+                    <div class="element-code">${element.code}</div>
+                    <div class="element-text">${element.text}</div>
+                `;
+                knowledgeContainer.appendChild(elementDiv);
+            });
+
+            // Populate risk elements
+            const riskContainer = document.getElementById('riskElements');
+            riskContainer.innerHTML = '';
+            elements.risk.forEach(element => {
+                const elementDiv = document.createElement('div');
+                elementDiv.className = 'element-item risk';
+                elementDiv.innerHTML = `
+                    <div class="element-code">${element.code}</div>
+                    <div class="element-text">${element.text}</div>
+                `;
+                riskContainer.appendChild(elementDiv);
+            });
+
+            // Populate skills elements
+            const skillsContainer = document.getElementById('skillsElements');
+            skillsContainer.innerHTML = '';
+            elements.skills.forEach(element => {
+                const elementDiv = document.createElement('div');
+                elementDiv.className = 'element-item skills';
+                elementDiv.innerHTML = `
+                    <div class="element-code">${element.code}</div>
+                    <div class="element-text">${element.text}</div>
+                `;
+                skillsContainer.appendChild(elementDiv);
+            });
+
+            // Show task detail view
+            document.getElementById('homePage').classList.add('hidden');
+            document.getElementById('areaDetailView').classList.add('hidden');
+            document.getElementById('taskDetailView').classList.remove('hidden');
+        }
+
+        // Toggle current task studied status
+        function markCurrentTaskStudied() {
+            if (!currentAreaId) return;
+            
+            const taskTitle = document.getElementById('taskTitle').textContent;
+            const taskId = taskTitle.match(/Task ([A-Z])/)?.[1];
+            
+            if (taskId) {
+                const taskKey = `${currentAreaId}-${taskId}`;
+                const taskProgress = progress.tasks[taskKey] || { studied: false };
+                
+                if (taskProgress.studied) {
+                    // Unmark as studied
+                    unmarkTaskStudied(currentAreaId, taskId);
+                    
+                    // Update UI
+                    const studyStatus = document.getElementById('studyStatus');
+                    const markBtn = document.getElementById('markStudiedBtn');
+                    
+                    studyStatus.textContent = 'Not yet studied';
+                    studyStatus.className = 'study-status';
+                    markBtn.textContent = '✅ Mark as Studied';
+                    markBtn.className = 'mark-studied-btn';
+                    markBtn.disabled = false;
+                } else {
+                    // Mark as studied
+                    markTaskStudied(currentAreaId, taskId);
+                    
+                    // Update UI
+                    const studyStatus = document.getElementById('studyStatus');
+                    const markBtn = document.getElementById('markStudiedBtn');
+                    
+                    studyStatus.textContent = `Studied on ${new Date().toLocaleDateString()}`;
+                    studyStatus.className = 'study-status studied';
+                    markBtn.textContent = '❌ Unmark as Studied';
+                    markBtn.className = 'mark-studied-btn unmark';
+                    markBtn.disabled = false;
+                }
+                
+                // Update progress summary
+                updateProgressSummary();
+            }
+        }
+
+        // Update progress summary
+        function updateProgressSummary() {
+            const totalAreas = Object.keys(areas).length;
+            const studiedAreas = Object.values(progress.areas).filter(area => area.studied).length;
+            
+            const progressCount = document.getElementById('progressCount');
+            if (progressCount) {
+                progressCount.textContent = `${studiedAreas}/${totalAreas}`;
+            }
+        }
+
+        // Toggle progress tracker visibility
+        function toggleProgressTracker() {
+            const tracker = document.getElementById('progressTracker');
+            const summary = document.getElementById('progressSummary');
+            
+            if (tracker.classList.contains('hidden')) {
+                tracker.classList.remove('hidden');
+                summary.classList.add('expanded');
+                populateProgressTracker();
+            } else {
+                tracker.classList.add('hidden');
+                summary.classList.remove('expanded');
+            }
+        }
+
+        // Populate progress tracker with area data
+        function populateProgressTracker() {
+            const container = document.getElementById('areasProgressList');
+            if (!container) return;
+
+            container.innerHTML = '';
+
+            // Update overview stats
+            const totalAreas = Object.keys(areas).length;
+            const studiedAreas = Object.values(progress.areas).filter(area => area.studied).length;
+            const percentage = Math.round((studiedAreas / totalAreas) * 100);
+
+            document.getElementById('totalAreas').textContent = totalAreas;
+            document.getElementById('studiedAreas').textContent = studiedAreas;
+            document.getElementById('progressPercentage').textContent = `${percentage}%`;
+            
+            const progressBar = document.getElementById('progressBarFill');
+            if (progressBar) {
+                progressBar.style.width = `${percentage}%`;
+            }
+
+            // Populate areas list
+            Object.keys(areas).forEach(areaId => {
+                const area = areas[areaId];
+                const areaProgress = progress.areas[areaId] || { studied: false };
+                
+                const areaDiv = document.createElement('div');
+                areaDiv.className = `area-progress-item ${areaProgress.studied ? 'studied' : ''}`;
+                
+                areaDiv.innerHTML = `
+                    <div class="area-progress-header">
+                        <div class="area-progress-title">Area ${areaId} - ${area.name}</div>
+                        <div class="area-progress-status ${areaProgress.studied ? 'studied' : 'not-studied'}">
+                            ${areaProgress.studied ? 'Studied' : 'Not Studied'}
+                        </div>
+                    </div>
+                    <div class="area-progress-description">${area.description}</div>
+                    <div class="area-progress-actions">
+                        <button class="area-progress-btn view" onclick="viewArea('${areaId}')">View Area</button>
+                        ${areaProgress.studied ? 
+                            `<button class="area-progress-btn unmark" onclick="toggleAreaProgress('${areaId}')">Unmark</button>` :
+                            `<button class="area-progress-btn mark" onclick="toggleAreaProgress('${areaId}')">Mark as Studied</button>`
+                        }
+                    </div>
+                `;
+                
+                container.appendChild(areaDiv);
+            });
+        }
+
+        // View area from progress tracker
+        function viewArea(areaId) {
+            showAreaDetail(areaId);
+            toggleProgressTracker(); // Close the tracker
+        }
+
+        // Toggle area progress from progress tracker
+        function toggleAreaProgress(areaId) {
+            const areaProgress = progress.areas[areaId] || { studied: false };
+            
+            if (areaProgress.studied) {
+                // Unmark as studied
+                progress.areas[areaId].studied = false;
+                progress.areas[areaId].lastStudied = null;
+            } else {
+                // Mark as studied
+                progress.areas[areaId].studied = true;
+                progress.areas[areaId].lastStudied = new Date().toISOString();
+            }
+            
+            saveProgress();
+            updateProgressSummary();
+            updateProgressDisplay();
+            populateProgressTracker(); // Refresh the tracker display
+        }
+
+        function showHomePage() {
+            document.getElementById('homePage').classList.remove('hidden');
+            document.getElementById('areaDetailView').classList.add('hidden');
+            document.getElementById('taskDetailView').classList.add('hidden');
+        }
+
+        // Enhanced search functionality
+        function performSearch(searchTerm) {
+            if (!searchTerm.trim()) {
+                clearSearchResults();
+                return;
+            }
+
+            const results = [];
+            const term = searchTerm.toLowerCase();
+
+            // Search areas
+            Object.keys(areas).forEach(areaId => {
+                const area = areas[areaId];
+                if (area.name.toLowerCase().includes(term) || 
+                    area.description.toLowerCase().includes(term) ||
+                    `area ${areaId.toLowerCase()}`.includes(term)) {
+                    results.push({
+                        type: 'Area',
+                        title: `Area ${areaId} - ${area.name}`,
+                        description: area.description,
+                        action: () => showAreaDetail(areaId)
+                    });
+                }
+
+                // Search tasks
+                area.tasks.forEach(task => {
+                    if (task.title.toLowerCase().includes(term) || 
+                        (task.description && task.description.toLowerCase().includes(term))) {
+                        results.push({
+                            type: 'Task',
+                            title: `Task ${task.id} - ${task.title}`,
+                            description: task.description || 'Click for detailed breakdown of Knowledge, Risk Management, and Skills elements.',
+                            action: () => {
+                                // Navigate to task detail view
+                                showAreaDetail(areaId);
+                                setTimeout(() => {
+                                    showTaskDetail(areaId, task.id);
+                                }, 200);
+                            }
+                        });
+                    }
+                });
+
+                // Search task elements
+                if (taskElements[areaId]) {
+                    Object.keys(taskElements[areaId]).forEach(taskId => {
+                        const elements = taskElements[areaId][taskId];
+                        
+                        // Search knowledge elements
+                        elements.knowledge.forEach(element => {
+                            if (element.text.toLowerCase().includes(term) || 
+                                element.code.toLowerCase().includes(term)) {
+                                results.push({
+                                    type: 'Knowledge Element',
+                                    title: element.code,
+                                    description: element.text,
+                                    action: () => {
+                                        // Navigate directly to task detail view
+                                        showAreaDetail(areaId);
+                                        setTimeout(() => {
+                                            showTaskDetail(areaId, taskId);
+                                        }, 200);
+                                    }
+                                });
+                            }
+                        });
+
+                        // Search risk elements
+                        elements.risk.forEach(element => {
+                            if (element.text.toLowerCase().includes(term) || 
+                                element.code.toLowerCase().includes(term)) {
+                                results.push({
+                                    type: 'Risk Element',
+                                    title: element.code,
+                                    description: element.text,
+                                    action: () => {
+                                        // Navigate directly to task detail view
+                                        showAreaDetail(areaId);
+                                        setTimeout(() => {
+                                            showTaskDetail(areaId, taskId);
+                                        }, 200);
+                                    }
+                                });
+                            }
+                        });
+
+                        // Search skills elements
+                        elements.skills.forEach(element => {
+                            if (element.text.toLowerCase().includes(term) || 
+                                element.code.toLowerCase().includes(term)) {
+                                results.push({
+                                    type: 'Skills Element',
+                                    title: element.code,
+                                    description: element.text,
+                                    action: () => {
+                                        // Navigate directly to task detail view
+                                        showAreaDetail(areaId);
+                                        setTimeout(() => {
+                                            showTaskDetail(areaId, taskId);
+                                        }, 200);
+                                    }
+                                });
+                            }
+                        });
+                    });
+                }
+            });
+
+            displaySearchResults(results, searchTerm);
+        }
+
+        function displaySearchResults(results, searchTerm) {
+            const resultsContainer = document.getElementById('searchResults');
+            if (!resultsContainer) {
+                // Create results container if it doesn't exist
+                const searchSection = document.querySelector('.search-section');
+                const resultsDiv = document.createElement('div');
+                resultsDiv.id = 'searchResults';
+                resultsDiv.className = 'search-results hidden';
+                searchSection.appendChild(resultsDiv);
+            }
+
+            const container = document.getElementById('searchResults');
+            
+            if (results.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #666; padding: 20px;">No results found for "' + searchTerm + '"</p>';
+                container.classList.remove('hidden');
+                return;
+            }
+
+            // Limit results to 20 for performance
+            const limitedResults = results.slice(0, 20);
+            
+            // Clear container first
+            container.innerHTML = `
+                <h3 style="margin-bottom: 15px; color: #333;">Search Results (${results.length} found)</h3>
+                ${results.length > 20 ? '<p style="text-align: center; color: #666; margin-bottom: 15px;">Showing first 20 results. Refine your search for more specific results.</p>' : ''}
+            `;
+            
+            // Add each result with proper event handling
+            limitedResults.forEach((result, index) => {
+                const resultDiv = document.createElement('div');
+                resultDiv.className = 'search-result-item';
+                resultDiv.innerHTML = `
+                    <div class="search-result-type">${result.type}</div>
+                    <div class="search-result-title">${highlightSearchTerm(result.title, searchTerm)}</div>
+                    <div class="search-result-description">${highlightSearchTerm(result.description, searchTerm)}</div>
+                `;
+                
+                // Add click event listener
+                resultDiv.addEventListener('click', () => {
+                    result.action();
+                    // Clear search results after navigation
+                    clearSearchResults();
+                    // Clear search input
+                    const searchInput = document.getElementById('searchInput');
+                    if (searchInput) {
+                        searchInput.value = '';
+                    }
+                });
+                
+                container.appendChild(resultDiv);
+            });
+            
+            container.classList.remove('hidden');
+        }
+
+        function highlightSearchTerm(text, term) {
+            if (!term) return text;
+            const regex = new RegExp(`(${term})`, 'gi');
+            return text.replace(regex, '<span class="search-highlight">$1</span>');
+        }
+
+        function clearSearchResults() {
+            const container = document.getElementById('searchResults');
+            if (container) {
+                container.classList.add('hidden');
+            }
+        }
+
+        // Initialize application
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            const areaCards = document.querySelectorAll('.area-card');
+
+            // Initialize progress tracking
+            initializeProgress();
+            updateProgressSummary();
+
+            // Enhanced search functionality
+            if (searchInput) {
+                let searchTimeout;
+                searchInput.addEventListener('input', function() {
+                    clearTimeout(searchTimeout);
+                    const searchTerm = this.value.trim();
+                    
+                    if (searchTerm.length >= 2) {
+                        searchTimeout = setTimeout(() => performSearch(searchTerm), 300);
+                    } else {
+                        clearSearchResults();
+                        // Show all area cards
+                    areaCards.forEach(card => {
+                            card.style.display = 'block';
+                        });
+                    }
+                });
+
+                // Clear search when input is empty
+                searchInput.addEventListener('blur', function() {
+                    if (!this.value.trim()) {
+                        clearSearchResults();
+                    }
+                });
+            }
+
+            // Update progress display when study mode is toggled
+            updateProgressDisplay();
+        });
+    </script>
+</body>
+</html>

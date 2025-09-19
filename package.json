@@ -1,0 +1,34 @@
+{
+  "name": "cfi-acs-reference",
+  "version": "1.0.0",
+  "description": "Interactive reference tool for CFI candidates studying FAA Flight Instructor ACS",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "serve": "python -m http.server 8000"
+  },
+  "keywords": [
+    "CFI",
+    "Flight Instructor",
+    "ACS",
+    "FAA",
+    "Aviation",
+    "Certification",
+    "Study Tool",
+    "PWA",
+    "Progressive Web App"
+  ],
+  "author": "CFI ACS Reference Tool",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YOUR_USERNAME/cfi-acs-reference.git"
+  },
+  "homepage": "https://YOUR_USERNAME.github.io/cfi-acs-reference",
+  "bugs": {
+    "url": "https://github.com/YOUR_USERNAME/cfi-acs-reference/issues"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

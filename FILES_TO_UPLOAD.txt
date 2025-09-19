@@ -1,0 +1,28 @@
+# Files to Upload to GitHub
+
+## Required Files (Upload These):
+✅ index.html                    - Main application file
+✅ manifest.json                 - PWA manifest for app installation
+✅ sw.js                        - Service worker for offline functionality
+✅ README.md                    - Project documentation
+✅ DEPLOYMENT.md                - Deployment instructions
+✅ package.json                 - Project metadata
+✅ .gitignore                   - Git ignore rules
+
+## Optional Files (Add Later for Polish):
+📱 favicon-32x32.png           - Browser favicon (32x32)
+📱 favicon-16x16.png           - Browser favicon (16x16)
+📱 apple-touch-icon.png        - iOS home screen icon (180x180)
+📱 icon-192.png                - PWA icon (192x192)
+📱 icon-512.png                - PWA icon (512x512)
+
+## Quick Start:
+1. Create GitHub repository
+2. Upload all ✅ files above
+3. Enable GitHub Pages in repository settings
+4. Your app will be live at: https://YOUR_USERNAME.github.io/REPOSITORY_NAME
+
+## Total File Size: ~500KB
+## Estimated Setup Time: 5-10 minutes
+
+The app is fully functional without the optional icon files!

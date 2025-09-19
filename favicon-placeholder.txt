@@ -1,0 +1,23 @@
+# Favicon Placeholder
+
+You'll need to create these icon files for a complete deployment:
+
+## Required Icons:
+- favicon-32x32.png (32x32 pixels)
+- favicon-16x16.png (16x16 pixels) 
+- apple-touch-icon.png (180x180 pixels)
+- icon-192.png (192x192 pixels)
+- icon-512.png (512x512 pixels)
+
+## Quick Solution:
+1. Go to https://favicon.io/favicon-generator/
+2. Upload an aviation-themed image or use text "CFI"
+3. Download the generated favicon package
+4. Extract and rename files to match the names above
+5. Upload to your GitHub repository
+
+## Alternative:
+- Use any 32x32 PNG image and rename it to favicon-32x32.png
+- The app will work without icons, but they make it look more professional
+
+The app is fully functional without these icons - they're just for visual polish!
